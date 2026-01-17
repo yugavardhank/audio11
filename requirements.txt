@@ -1,0 +1,16 @@
+Django==4.2.7
+openai-whisper
+pyannote.audio
+sentence-transformers
+scikit-learn
+spacy
+torch
+torchaudio
+torchvision
+ffmpeg-python
+transformers
+nltk
+numpy
+bertopic
+umap-learn
+hdbscan

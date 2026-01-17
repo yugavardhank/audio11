@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Processing Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            text-align: center;
+            min-width: 180px;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .topic-card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .topic-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+        
+        .topic-info {
+            flex: 1;
+        }
+        
+        .topic-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .topic-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        .topic-time {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+        
+        .topic-summary {
+            background: white;
+            border-left: 3px solid #ffc107;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 5px;
+            font-style: italic;
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .topic-text {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1em;
+            margin-top: 12px;
+        }
+        
+        .summary-label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #ffc107;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .transcript-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .transcript-segment {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+            transition: all 0.2s ease;
+        }
+        
+        .transcript-segment:hover {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateX(3px);
+        }
+        
+        .transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .speaker-label {
+            background: #764ba2;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .timestamp {
+            color: #667eea;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .transcript-text {
+            color: #333;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin-top: 30px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .visualization-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .visualization-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Custom scrollbar */
+        .transcript-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .transcript-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .transcript-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+        
+        .transcript-container::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+        
+        .export-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .export-title {
+            color: #667eea;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .export-formats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .export-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .export-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .format-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .format-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .format-desc {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .export-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .export-link:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Processing Results</h1>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">{{ speaker_count }}</div>
+                    <div class="stat-label">Speakers Detected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ topics|length }}</div>
+                    <div class="stat-label">Topics Identified</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ transcript|length }}</div>
+                    <div class="stat-label">Transcript Segments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_duration }}</div>
+                    <div class="stat-label">Total Duration</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Topics Section -->
+        <div class="section">
+            <h2 class="section-title">📚 Topic Segments</h2>
+            
+            {% if topics %}
+                {% for topic in topics %}
+                <div class="topic-card">
+                    <div class="topic-header">
+                        <div class="topic-info">
+                            <div class="topic-title">
+                                {{ topic.title|default:"Untitled Topic" }}
+                            </div>
+                            <div class="topic-meta">
+                                {{ topic.sentence_count|default:0 }} sentences • Topic #{{ topic.id|default:forloop.counter }}
+                            </div>
+                        </div>
+                        <div class="topic-time">
+                            {{ topic.start_time }} - {{ topic.end_time }}
+                        </div>
+                    </div>
+                    
+                    {% if topic.summary %}
+                    <div class="topic-summary">
+                        <div class="summary-label">✨ Summary</div>
+                        {{ topic.summary }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="topic-text">
+                        <strong>Content:</strong> {{ topic.text|truncatewords:60 }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">No topics detected</div>
+            {% endif %}
+        </div>
+        
+        <!-- Export Formats Section -->
+        {% if export_formats %}
+        <div class="export-section">
+            <div class="export-title">📥 Download Transcripts</div>
+            <div class="export-formats">
+                {% if export_formats.webvtt %}
+                <div class="export-card">
+                    <div class="format-icon">📺</div>
+                    <div class="format-name">WebVTT</div>
+                    <div class="format-desc">Subtitle format with timestamps</div>
+                    <a href="{{ export_formats.webvtt }}" download class="export-link">Download</a>
+                </div>
+                {% endif %}
+                
+                {% if export_formats.dote_json %}
+                <div class="export-card">
+                    <div class="format-icon">📋</div>
+                    <div class="format-name">DOTE JSON</div>
+                    <div class="format-desc">Structured podcast format</div>
+                    <a href="{{ export_formats.dote_json }}" download class="export-link">Download</a>
+                </div>
+                {% endif %}
+                
+                {% if export_formats.plain_text %}
+                <div class="export-card">
+                    <div class="format-icon">📄</div>
+                    <div class="format-name">Text + Timestamps</div>
+                    <div class="format-desc">Plain text with timing</div>
+                    <a href="{{ export_formats.plain_text }}" download class="export-link">Download</a>
+                </div>
+                {% endif %}
+                
+                {% if export_formats.plain_text_simple %}
+                <div class="export-card">
+                    <div class="format-icon">📃</div>
+                    <div class="format-name">Plain Text</div>
+                    <div class="format-desc">Text only, no timestamps</div>
+                    <a href="{{ export_formats.plain_text_simple }}" download class="export-link">Download</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Metrics Section -->
+        {% if metrics %}
+        <div class="section">
+            <h2 class="section-title">📊 Pipeline Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Total Segments</div>
+                    <div class="metric-value">{{ metrics.total_segments }}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Topics Identified</div>
+                    <div class="metric-value">{{ metrics.total_topics }}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Topic Length (sec)</div>
+                    <div class="metric-value">{{ metrics.avg_topic_length|floatformat:1 }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Visualizations Section -->
+        {% if visualizations %}
+        <div class="section">
+            <h2 class="section-title">📈 Analysis Visualizations</h2>
+            
+            {% if visualizations.mel_spectrogram %}
+            <div class="visualization-container">
+                <h3 style="color: #667eea; margin-bottom: 15px;">🔊 Mel Spectrogram - Frequency Analysis</h3>
+                <img src="{{ visualizations.mel_spectrogram }}" alt="Mel Spectrogram" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Shows the frequency content of the audio over time. Brighter areas indicate stronger frequencies at those times.</p>
+            </div>
+            {% endif %}
+            
+            {% if visualizations.cosine_similarity %}
+            <div class="visualization-container" style="margin-top: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">🔗 Cosine Similarity - Topic Coherence</h3>
+                <img src="{{ visualizations.cosine_similarity }}" alt="Cosine Similarity" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Shows semantic similarity between consecutive transcript segments. Red dashed lines indicate potential topic boundaries (low similarity).</p>
+            </div>
+            {% endif %}
+            
+            {% if visualizations.topic_timeline %}
+            <div class="visualization-container" style="margin-top: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">⏱️ Topic Timeline - Segmentation Overview</h3>
+                <img src="{{ visualizations.topic_timeline }}" alt="Topic Timeline" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Visual representation of all detected topics and their time boundaries throughout the audio.</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+            <h2 class="section-title">📝 Full Transcript</h2>
+            
+            <div class="transcript-container">
+                {% if transcript %}
+                    {% for segment in transcript %}
+                    <div class="transcript-segment">
+                        <div class="transcript-header">
+                            <span class="speaker-label">{{ segment.speaker }}</span>
+                            <span class="timestamp">{{ segment.start_time }} - {{ segment.end_time }}</span>
+                        </div>
+                        <div class="transcript-text">{{ segment.text }}</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">No transcript available</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="/" class="back-button">⬅️ Process Another Audio</a>
+        </div>
+    </div>
+</body>
+</html>
