@@ -43,7 +43,8 @@ def transcribe_chunks(chunks, sr):
                 "start": r.start + offset,
                 "end": r.end + offset,
                 "text": r.text.strip(),
-                "confidence": round(r.avg_logprob, 3)
+                "confidence": round(r.avg_logprob, 3),
+                "speaker": "Speaker"
             })
             max_end = max(max_end, r.end)
 

@@ -1,3 +1,31 @@
+import os
+
+def _fmt(seconds):
+    m = int(seconds // 60)
+    s = int(seconds % 60)
+    return f"{m:02d}:{s:02d}"
+
+def write_transcript(transcript, out_dir):
+    path = os.path.join(out_dir, "transcript.txt")
+    with open(path, "w", encoding="utf-8") as f:
+        for seg in transcript:
+            start = _fmt(seg["start"])
+            end = _fmt(seg["end"])
+            text = seg["text"]
+            speaker = seg.get("speaker", "Speaker")
+            f.write(f"[{start} - {end}] {speaker}: {text}\n")
+    return path
+
+def write_topics_timeline(topics, out_dir):
+    path = os.path.join(out_dir, "topics_timeline.txt")
+    with open(path, "w", encoding="utf-8") as f:
+        for t in topics:
+            start = _fmt(t["start_time"])
+            end = _fmt(t["end_time"])
+            title = t.get("title", "Untitled Topic")
+            f.write(f"[{start} - {end}] {title}\n")
+    return path
+
 def write_topics_with_summaries(topics, out_dir):
     path = os.path.join(out_dir, "topics_with_summaries.txt")
 
