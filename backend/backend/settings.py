@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -104,14 +104,26 @@ USE_TZ = True
 # Static & Media Files
 # ------------------------------------------------------------------
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000
 
 # ------------------------------------------------------------------
 # Default Primary Key
 # ------------------------------------------------------------------
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DEBUG = False
+
+ALLOWED_HOSTS = ["*"]  # replace with domain later
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1",
+    "http://localhost",
+]

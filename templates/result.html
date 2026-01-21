@@ -10,547 +10,588 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
         }
-        
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+            padding: clamp(16px, 4vw, 32px);
+            color: var(--text-primary);
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
         }
-        
+
         .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-        }
-        
-        h1 {
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: clamp(24px, 6vw, 48px);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            text-align: center;
-            min-width: 180px;
         }
-        
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-        
-        .section {
-            margin: 40px 0;
-        }
-        
-        .section-title {
-            color: #667eea;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e9ecef;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .topic-card {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .topic-card:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .topic-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            gap: 20px;
-        }
-        
-        .topic-info {
-            flex: 1;
-        }
-        
-        .topic-title {
-            font-size: 1.4em;
-            font-weight: 600;
-            color: #333;
+
+        .header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 8px;
+            font-weight: 700;
         }
-        
-        .topic-meta {
-            font-size: 0.9em;
-            color: #666;
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: clamp(24px, 6vw, 48px);
+        }
+
+        .audio-player {
+            margin-bottom: 32px;
+            background: var(--bg-light);
+            padding: 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-light);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #fff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 20vw, 250px), 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: clamp(20px, 4vw, 28px);
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
             margin-bottom: 12px;
         }
-        
-        .topic-time {
-            background: #667eea;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-            white-space: nowrap;
-            min-width: fit-content;
+
+        .stat-card strong {
+            display: block;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 700;
         }
-        
-        .topic-summary {
-            background: white;
-            border-left: 3px solid #ffc107;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 5px;
-            font-style: italic;
-            color: #555;
-            font-size: 0.95em;
+
+        .section {
+            margin-bottom: 48px;
         }
-        
-        .topic-text {
-            color: #555;
-            line-height: 1.8;
-            font-size: 1em;
-            margin-top: 12px;
+
+        .section h2 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin-bottom: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
-        
-        .summary-label {
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #ffc107;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+
+        .card {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 16px;
+            transition: box-shadow 0.2s;
         }
-        
-        .transcript-container {
-            background: #f8f9fa;
-            border-radius: 10px;
+
+        .card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
             padding: 20px;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        
-        .transcript-segment {
-            padding: 15px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid #764ba2;
-            transition: all 0.2s ease;
-        }
-        
-        .transcript-segment:hover {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transform: translateX(3px);
-        }
-        
-        .transcript-header {
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            user-select: none;
         }
-        
-        .speaker-label {
-            background: #764ba2;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.85em;
+
+        .card h3 {
+            font-size: 1.1rem;
             font-weight: 600;
+            margin: 0;
         }
-        
-        .timestamp {
-            color: #667eea;
-            font-size: 0.85em;
-            font-weight: 600;
+
+        .card-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            color: var(--primary);
         }
-        
-        .transcript-text {
-            color: #333;
-            line-height: 1.6;
-            font-size: 1em;
+
+        .card.collapsed .card-toggle {
+            transform: rotate(-90deg);
         }
-        
-        .back-button {
+
+        .card-content {
+            padding: 0 20px 20px;
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .card.collapsed .card-content {
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            margin-top: 30px;
+            white-space: nowrap;
         }
-        
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 16px 0;
+            font-size: 0.95rem;
         }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-style: italic;
+
+        .meta-item {
+            color: var(--primary);
+            font-weight: 600;
         }
-        
-        .visualization-container {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid #e9ecef;
+
+        .summary-box {
+            background: #f0f4ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
-        
-        .visualization-container img {
+
+        .transcript-segment {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .segment-time {
+            color: var(--primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-weight: 600;
+        }
+
+        .segment-time:hover {
+            opacity: 0.7;
+        }
+
+        .segment-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timeline-image {
             max-width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+            display: block;
         }
-        
-        /* Custom scrollbar */
-        .transcript-container::-webkit-scrollbar {
-            width: 10px;
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            transition: border-color 0.2s;
         }
-        
-        .transcript-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-        
-        .transcript-container::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 10px;
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            font-size: 1rem;
         }
-        
-        .transcript-container::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
+
+        .files-list {
+            list-style: none;
         }
-        
-        .export-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border: 2px solid #667eea;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-        }
-        
-        .export-title {
-            color: #667eea;
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 15px;
+
+        .files-list li {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
-        
-        .export-formats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+
+        .files-list li:last-child {
+            border-bottom: none;
         }
-        
-        .export-card {
+
+        .files-list code {
             background: white;
-            border: 1px solid #e9ecef;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .export-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .format-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .format-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .format-desc {
-            font-size: 0.85em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .export-link {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
             font-size: 0.9em;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            color: var(--primary);
         }
-        
-        .export-link:hover {
-            background: #764ba2;
-            transform: scale(1.05);
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .metric-card {
-            background: white;
-            border: 1px solid #e9ecef;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .metric-label {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-        }
-        
-        .metric-value {
-            font-size: 1.8em;
-            font-weight: 600;
-            color: #667eea;
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                gap: 12px;
+            }
+
+            .meta-info {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .segment-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <h1>🎯 Processing Results</h1>
-            
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">{{ speaker_count }}</div>
-                    <div class="stat-label">Speakers Detected</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">{{ topics|length }}</div>
-                    <div class="stat-label">Topics Identified</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">{{ transcript|length }}</div>
-                    <div class="stat-label">Transcript Segments</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">{{ total_duration }}</div>
-                    <div class="stat-label">Total Duration</div>
-                </div>
-            </div>
+            <p>Your audio has been analyzed successfully</p>
         </div>
-        
-        <!-- Topics Section -->
-        <div class="section">
-            <h2 class="section-title">📚 Topic Segments</h2>
-            
-            {% if topics %}
-                {% for topic in topics %}
-                <div class="topic-card">
-                    <div class="topic-header">
-                        <div class="topic-info">
-                            <div class="topic-title">
-                                {{ topic.title|default:"Untitled Topic" }}
-                            </div>
-                            <div class="topic-meta">
-                                {{ topic.sentence_count|default:0 }} sentences • Topic #{{ topic.id|default:forloop.counter }}
-                            </div>
-                        </div>
-                        <div class="topic-time">
-                            {{ topic.start_time }} - {{ topic.end_time }}
-                        </div>
-                    </div>
-                    
-                    {% if topic.summary %}
-                    <div class="topic-summary">
-                        <div class="summary-label">✨ Summary</div>
-                        {{ topic.summary }}
-                    </div>
-                    {% endif %}
-                    
-                    <div class="topic-text">
-                        <strong>Content:</strong> {{ topic.text|truncatewords:60 }}
-                    </div>
+
+        <div class="content">
+            <!-- Audio Player -->
+            {% if audio_url %}
+            <div class="audio-player">
+                <audio id="audioPlayer" controls>
+                    <source src="{{ audio_url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <a href="{% url 'download_pdf' job_id %}" class="btn">📄 Export PDF</a>
+                <a href="{% url 'download_docx' job_id %}" class="btn">📝 Export DOCX</a>
+                <a href="/" class="btn btn-secondary">⬅️ Process Another</a>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Topics Identified</p>
+                    <strong>{{ topics|length }}</strong>
+                </div>
+                <div class="stat-card">
+                    <p>Transcript Segments</p>
+                    <strong>{{ transcript|length }}</strong>
+                </div>
+                {% for k, v in metrics.items %}
+                <div class="stat-card">
+                    <p>{{ k|title }}</p>
+                    <strong>{{ v }}</strong>
                 </div>
                 {% endfor %}
-            {% else %}
-                <div class="empty-state">No topics detected</div>
-            {% endif %}
-        </div>
-        
-        <!-- Export Formats Section -->
-        {% if export_formats %}
-        <div class="export-section">
-            <div class="export-title">📥 Download Transcripts</div>
-            <div class="export-formats">
-                {% if export_formats.webvtt %}
-                <div class="export-card">
-                    <div class="format-icon">📺</div>
-                    <div class="format-name">WebVTT</div>
-                    <div class="format-desc">Subtitle format with timestamps</div>
-                    <a href="{{ export_formats.webvtt }}" download class="export-link">Download</a>
-                </div>
-                {% endif %}
-                
-                {% if export_formats.dote_json %}
-                <div class="export-card">
-                    <div class="format-icon">📋</div>
-                    <div class="format-name">DOTE JSON</div>
-                    <div class="format-desc">Structured podcast format</div>
-                    <a href="{{ export_formats.dote_json }}" download class="export-link">Download</a>
-                </div>
-                {% endif %}
-                
-                {% if export_formats.plain_text %}
-                <div class="export-card">
-                    <div class="format-icon">📄</div>
-                    <div class="format-name">Text + Timestamps</div>
-                    <div class="format-desc">Plain text with timing</div>
-                    <a href="{{ export_formats.plain_text }}" download class="export-link">Download</a>
-                </div>
-                {% endif %}
-                
-                {% if export_formats.plain_text_simple %}
-                <div class="export-card">
-                    <div class="format-icon">📃</div>
-                    <div class="format-name">Plain Text</div>
-                    <div class="format-desc">Text only, no timestamps</div>
-                    <a href="{{ export_formats.plain_text_simple }}" download class="export-link">Download</a>
-                </div>
-                {% endif %}
             </div>
-        </div>
-        {% endif %}
-        
-        <!-- Metrics Section -->
-        {% if metrics %}
-        <div class="section">
-            <h2 class="section-title">📊 Pipeline Metrics</h2>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Total Segments</div>
-                    <div class="metric-value">{{ metrics.total_segments }}</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Topics Identified</div>
-                    <div class="metric-value">{{ metrics.total_topics }}</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Avg Topic Length (sec)</div>
-                    <div class="metric-value">{{ metrics.avg_topic_length|floatformat:1 }}</div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        
-        <!-- Visualizations Section -->
-        {% if visualizations %}
-        <div class="section">
-            <h2 class="section-title">📈 Analysis Visualizations</h2>
-            
-            {% if visualizations.mel_spectrogram %}
-            <div class="visualization-container">
-                <h3 style="color: #667eea; margin-bottom: 15px;">🔊 Mel Spectrogram - Frequency Analysis</h3>
-                <img src="{{ visualizations.mel_spectrogram }}" alt="Mel Spectrogram" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Shows the frequency content of the audio over time. Brighter areas indicate stronger frequencies at those times.</p>
-            </div>
-            {% endif %}
-            
-            {% if visualizations.cosine_similarity %}
-            <div class="visualization-container" style="margin-top: 30px;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">🔗 Cosine Similarity - Topic Coherence</h3>
-                <img src="{{ visualizations.cosine_similarity }}" alt="Cosine Similarity" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Shows semantic similarity between consecutive transcript segments. Red dashed lines indicate potential topic boundaries (low similarity).</p>
-            </div>
-            {% endif %}
-            
-            {% if visualizations.topic_timeline %}
-            <div class="visualization-container" style="margin-top: 30px;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">⏱️ Topic Timeline - Segmentation Overview</h3>
-                <img src="{{ visualizations.topic_timeline }}" alt="Topic Timeline" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Visual representation of all detected topics and their time boundaries throughout the audio.</p>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        
-            <h2 class="section-title">📝 Full Transcript</h2>
-            
-            <div class="transcript-container">
-                {% if transcript %}
-                    {% for segment in transcript %}
-                    <div class="transcript-segment">
-                        <div class="transcript-header">
-                            <span class="speaker-label">{{ segment.speaker }}</span>
-                            <span class="timestamp">{{ segment.start_time }} - {{ segment.end_time }}</span>
-                        </div>
-                        <div class="transcript-text">{{ segment.text }}</div>
+
+<div class="section">
+    <h2>📥 Download Outputs</h2>
+
+    <ul style="line-height: 2;">
+        <li>
+            <a href="{% url 'download_pdf' job_id %}">
+                ⬇️ PDF Report
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'download_docx' job_id %}">
+                ⬇️ Word (DOCX) Report
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'download_text' job_id 'transcript.txt' %}">
+                ⬇️ Full Transcript
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'download_text' job_id 'topics_timeline.txt' %}">
+                ⬇️ Topics with Timestamps
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'download_text' job_id 'topics_with_summaries.txt' %}">
+                ⬇️ Topics & Summaries
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+            <!-- Generated Files -->
+            <div class="section">
+                <div class="card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>📁 Generated Files</h3>
+                        <span class="card-toggle">▼</span>
                     </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="empty-state">No transcript available</div>
-                {% endif %}
+                    <div class="card-content">
+                        <ul class="files-list">
+                            <li>📄 <code>transcript.txt</code></li>
+                            <li>📊 <code>topics_timeline.txt</code></li>
+                            <li>📝 <code>topics_with_summaries.txt</code></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div style="text-align: center;">
-            <a href="/" class="back-button">⬅️ Process Another Audio</a>
+
+            <!-- Topics -->
+            <div class="section">
+                <h2>📚 Topics Discussed</h2>
+
+                {% for topic in topics %}
+                <div class="card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>{{ topic.title|default:"Untitled Topic" }}</h3>
+                        <span class="card-toggle">▼</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="meta-info">
+                            <div class="meta-item">⏱️ {{ topic.start_time|floatformat:1 }}s – {{ topic.end_time|floatformat:1 }}s</div>
+                            <div class="meta-item">✓ Confidence: {{ topic.confidence }}</div>
+                        </div>
+
+                        <div class="summary-box">
+                            <strong>Summary</strong><br>
+                            {{ topic.summary }}
+                        </div>
+                        
+                        <div style="margin-top: 16px;">
+                            <strong>Content</strong><br>
+                            <p style="margin-top: 8px; color: var(--text-secondary); line-height: 1.6;">
+                                {{ topic.text }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-state">No topics detected.</div>
+                {% endfor %}
+            </div>
+
+            <!-- Transcript Search -->
+            <div class="section">
+                <h2>📝 Full Transcript</h2>
+                <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search transcript...">
+
+                {% for seg in transcript %}
+                <div class="transcript-segment">
+                    <div class="segment-header">
+                        <span class="badge">{{ seg.speaker }}</span>
+                        <span class="segment-time" onclick="seekAudio({{ seg.start }})">▶ {{ seg.start|floatformat:1 }}s</span>
+                    </div>
+                    <p class="segment-text">{{ seg.text }}</p>
+                </div>
+                {% empty %}
+                <div class="empty-state">No transcript available.</div>
+                {% endfor %}
+            </div>
+
+            <!-- Ask about Audio -->
+            <div class="section">
+                <h2>🔍 Ask about this audio</h2>
+                <input type="text" id="q" class="search-box" placeholder="Ask a question...">
+                <button onclick="ask()" class="btn">Ask</button>
+                <p id="a" style="margin-top: 16px; color: var(--text-secondary); line-height: 1.6;"></p>
+            </div>
+
+            <!-- Speaker-wise Transcript -->
+            <div class="section">
+                <h2>🗣️ Speaker-wise Transcript</h2>
+
+                {% regroup transcript by speaker as speaker_list %}
+
+                {% for speaker in speaker_list %}
+                <div class="card">
+                    <div class="card-header" onclick="toggleCard(this)">
+                        <h3>
+                            <span class="badge">{{ speaker.grouper }}</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9em; font-weight: normal; margin-left: 10px;">{{ speaker.list|length }} segments</span>
+                        </h3>
+                        <span class="card-toggle">▼</span>
+                    </div>
+                    <div class="card-content">
+                        {% for seg in speaker.list %}
+                        <div class="transcript-segment">
+                            <div class="segment-header">
+                                <span class="segment-time">{{ seg.start|floatformat:1 }}s – {{ seg.end|floatformat:1 }}s</span>
+                            </div>
+                            <p class="segment-text">{{ seg.text }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-state">No transcript available.</div>
+                {% endfor %}
+            </div>
         </div>
     </div>
+
+    <script>
+        function searchTranscript() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            document.querySelectorAll(".transcript-segment").forEach(seg => {
+                seg.style.display = seg.innerText.toLowerCase().includes(query) ? "block" : "none";
+            });
+        }
+
+        function toggleCard(element) {
+            element.closest('.card').classList.toggle('collapsed');
+        }
+
+        function seekAudio(seconds) {
+            const player = document.getElementById("audioPlayer");
+            if (player) {
+                player.currentTime = seconds;
+                player.play();
+            }
+        }
+
+        function ask() {
+            const answer = document.getElementById("a");
+            if (answer) {
+                answer.textContent = "Q&A is not implemented in this build.";
+            }
+        }
+
+        document.getElementById("searchInput").addEventListener("keyup", searchTranscript);
+    </script>
+
 </body>
 </html>
