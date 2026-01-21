@@ -1,29 +1,47 @@
-# 🎙️ Advanced Audio Processing Pipeline - Version 1.0
+# 🎙️ Advanced Audio Processing Pipeline - Version 2.0
 
-## Status: ✅ Fully Implemented & Ready to Use
+## Status: ✅ Production Ready
 
-The audio processing pipeline has been **completely rebuilt** with advanced NLP techniques. Topics are detected intelligently, summarized automatically, and titled accurately.
+An intelligent audio processing system that transcribes audio files, detects topics, generates summaries, and provides comprehensive analytics. Built with Django, Whisper, and state-of-the-art NLP models.
 
 ---
 
-## Quick Start (< 5 minutes)
+## 🚀 Quick Start (< 5 minutes)
 
-### 1. Ensure Server is Running
+### 1. Prerequisites
+- Python 3.8+ installed
+- Virtual environment activated (`venv_wx`)
+- FFmpeg installed (for audio processing)
+
+### 2. Install Dependencies
+```bash
+cd e:\infy_sp\project_pod
+.\venv_wx\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+**First-time setup downloads:**
+- Whisper model (~150MB)
+- Sentence transformer model (~80MB)
+- BART summarization model (~1.6GB)
+- spaCy language model (~12MB)
+
+### 2. Ensure Server is Running
 ```bash
 cd e:\infy_sp\project_pod
 .\venv_wx\Scripts\python backend\manage.py runserver 0.0.0.0:8000
 ```
 
-### 2. Open in Browser
+### 3. Open in Browser
 Visit: **http://127.0.0.1:8000/**
 
-### 3. Upload Audio
+### 4. Upload Audio
 1. Click "Choose File"
 2. Select MP3, WAV, or M4A
 3. Click "Upload & Process"
 4. Wait 30-120 seconds for results
 
-### 4. View Results
+### 5. View Results
 - **Topics with summaries**
 - **Full transcript**
 - **Speaker identification**
@@ -424,3 +442,6 @@ Your audio pipeline has been **completely upgraded** with:
 **Status:** Ready to use! 🎉
 
 **Access:** http://127.0.0.1:8000/
+
+# infy_aud_1111
+project code draft
